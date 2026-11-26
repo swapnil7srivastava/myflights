@@ -1,0 +1,73 @@
+# Personal flight-search preferences. Edit this file before any future trip search.
+trip:
+  name: "Japan spring 2027 - Osaka in, Tokyo out"
+  currency: INR
+  adults: 2                  # Assumption: two adults; change if needed
+  children: 0
+  infants: 0
+
+  outbound:
+    target_date: '2027-03-25'
+    earliest_date: '2027-03-22'    # +/- 3 days
+    latest_date: '2027-03-28'
+    origins_preference: [BLR, BOM, DEL]
+    destination: KIX              # Kansai International Airport, Osaka
+
+  inbound:
+    target_date: '2027-04-05'
+    earliest_date: '2027-04-02'    # +/- 3 days
+    latest_date: '2027-04-08'
+    origins_preference: [HND, NRT] # Haneda preferred, Narita fallback
+    destinations_preference: [BLR, BOM, DEL]
+
+  itinerary:
+    type: open_jaw                   # Fly into Osaka, back from Tokyo
+    preferred_nights: [10, 12]      # Soft preference only; do not exclude valid dates
+    preferred_max_stops_per_direction: 1
+    avoid_self_transfer: true
+    checked_baggage_preferred: true
+    prefer_protected_connections: true
+    avoid_overnight_layovers: true
+    cabin_comparisons:
+      - economy_both_directions
+      - economy_out_business_back
+      - business_both_directions
+    no_forced_airline: true
+
+  india_repositioning:
+    starting_city: BLR
+    allowed_alternate_gateways: [BOM, DEL]
+    compare_only_if_net_savings_inr_per_person_at_least: 5000
+    include_domestic_fare_baggage_ground_transfer_and_optional_hotel: true
+    warn_on_separate_ticket_missed_connection_risk: true
+    prefer_overnight_buffer_for_separate_tickets: true
+
+search:
+  primary_provider: octotrip-flights
+  optional_fallback: fli                 # https://github.com/punitarani/fli
+  max_calls_initial_phase: 16
+  max_calls_extended_phase: 48          # Total, only if initial results justify extension
+  respect_provider_rate_limits: true
+  verify_shortlisted_fares_again: true
+  capture_source_and_timestamp: true
+  do_not_book_or_pay: true
+  no_paid_api_or_subscription: true
+  results_directory: results
+  report_filename: latest.md
+
+ranking:
+  required: [cheapest, fastest, best_overall, best_premium_value]
+  compare_total_cost_for_all_adults: true
+  require_honest_unknown_baggage_and_fee_labels: true
+  disallow_invented_prices_or_urls: true
+  include_original_booking_or_verification_link: true
+  never_treat_two_one_ways_as_a_verified_multi_city_fare: true
+
+# --- Budget search policy (added 31 Oct 2026) ---
+budget_search:
+  target_total_inr_for_two: 140000
+  max_hours_per_direction: 16
+  checked_bag_required_per_adult_per_leg: true   # treat as PROVISIONAL until verified
+  extended_window: {outbound: ['2027-03-20', '2027-03-30'], inbound: ['2027-04-01', '2027-04-10']}
+  nights_target: [10, 13]
+  nights_allowed: [9, 15]
